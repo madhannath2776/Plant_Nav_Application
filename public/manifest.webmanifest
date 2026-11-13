@@ -1,0 +1,23 @@
+{
+  "name": "Tree Navigator",
+  "short_name": "Tree Navigator",
+  "description": "Explore and navigate verified campus trees.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7faf6",
+  "theme_color": "#0b3f2b",
+  "icons": [
+    {
+      "src": "/tree-navigator-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/tree-navigator-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

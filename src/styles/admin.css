@@ -1,0 +1,52 @@
+/* Admin app: review, accept, reject. Nothing else. */
+.admin-shell { min-height: 100vh; background: #f3f6f4; }
+.admin-header { position: sticky; top: 0; z-index: 50; height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(16px, calc((100vw - 1040px) / 2)); border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .95); backdrop-filter: blur(14px); }
+.admin-logout { display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 14px; color: var(--ink); border: 1px solid var(--line); border-radius: 12px; background: white; font-size: 13px; font-weight: 700; }
+.admin-main { width: min(100%, 1040px); margin: 0 auto; padding: 18px 16px calc(40px + env(safe-area-inset-bottom)); }
+
+.admin-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 18px; padding: 4px; border: 1px solid var(--line); border-radius: 16px; background: white; }
+.admin-tabs button { height: 46px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 12px; color: var(--muted); background: transparent; font-size: 14px; font-weight: 700; transition: background .2s, color .2s; }
+.admin-tabs button b { min-width: 24px; padding: 2px 7px; border-radius: 99px; background: #eef3f0; font-size: 12px; font-weight: 800; }
+.admin-tabs button.active { color: white; background: var(--green); }
+.admin-tabs button.active b { color: var(--green-dark); background: white; }
+
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.admin-skeleton { height: 420px; border-radius: 22px; }
+.admin-card { display: grid; grid-template-rows: auto 1fr; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: white; box-shadow: var(--shadow); transition: opacity .5s ease, transform .5s ease, border-color .3s, box-shadow .3s; animation: pageIn .35s ease both; }
+.admin-card.is-approved { border-color: #5cc592; box-shadow: 0 0 0 3px rgba(34, 160, 107, .18); }
+.admin-card.is-approved, .admin-card.is-rejected { opacity: .55; transform: scale(.985); }
+.admin-photo { position: relative; height: 210px; overflow: hidden; display: grid; place-items: center; color: #9fb2a8; background: #e8efea; }
+.admin-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.admin-body { display: grid; align-content: start; gap: 12px; padding: 16px; }
+.admin-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.admin-title h2 { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.03em; overflow-wrap: anywhere; }
+.admin-body dl { display: grid; gap: 9px; margin: 0; }
+.admin-body dl > div { display: grid; grid-template-columns: 96px 1fr; gap: 8px; align-items: baseline; }
+.admin-body dt { color: var(--muted); font-size: 12px; font-weight: 600; }
+.admin-body dd { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 0; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.admin-body dd svg { color: var(--emerald); flex: none; }
+.coords { flex-basis: 100%; color: var(--muted); font-size: 12px; font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+.admin-actions { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; margin-top: 4px; }
+.accept-btn, .reject-btn { height: 52px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 15px; font-size: 15px; font-weight: 800; letter-spacing: .01em; transition: transform .1s, opacity .2s, background .2s; }
+.accept-btn { color: white; background: linear-gradient(180deg, #1c8a5a, #12603f); box-shadow: 0 8px 18px rgba(18, 96, 63, .28); }
+.reject-btn { color: #b03a3a; border: 1.5px solid #efc3c3; background: #fff5f5; }
+.accept-btn:disabled, .reject-btn:disabled { cursor: default; opacity: .75; }
+.admin-card.is-approved .accept-btn { opacity: 1; background: var(--emerald); }
+.admin-error { margin: 0; padding: 9px 11px; color: #8d3434; border-radius: 11px; background: #fdeaea; font-size: 13px; font-weight: 600; }
+
+.admin-empty { display: grid; justify-items: center; gap: 12px; padding: 70px 20px; color: var(--muted); text-align: center; }
+.admin-empty > span { width: 64px; height: 64px; display: grid; place-items: center; color: var(--green); border-radius: 20px; background: var(--mint); }
+.admin-empty h2 { margin: 0; color: var(--ink); font-size: 18px; font-weight: 700; }
+
+.admin-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; background: rgba(7, 32, 22, .55); backdrop-filter: blur(3px); animation: shellIn .2s ease both; }
+.admin-modal-card { width: min(100%, 400px); display: grid; gap: 14px; padding: 22px; border-radius: 22px; background: white; box-shadow: 0 30px 70px rgba(0, 0, 0, .3); animation: successPop .25s ease-out both; }
+.admin-modal-card h2 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -.03em; }
+.admin-modal-card textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: #fbfcfb; font-size: 15px; font-weight: 500; resize: none; outline: 0; }
+.admin-modal-card textarea:focus { border-color: var(--emerald); }
+.admin-modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.modal-cancel, .modal-reject { height: 48px; border: 0; border-radius: 14px; font-size: 15px; font-weight: 700; }
+.modal-cancel { color: var(--ink); background: #eef3f0; }
+.modal-reject { color: white; background: #c24141; }
+.modal-cancel:disabled, .modal-reject:disabled { opacity: .6; }
+
+@media (max-width: 400px) { .admin-body dl > div { grid-template-columns: 1fr; gap: 1px; } }
